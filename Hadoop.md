@@ -136,10 +136,11 @@
 
 7. 使用FileZilla连接server，修改profile文件
 
+8. 修改masters、slaves文件，hadoop配置文件
 
-8. 使用FileZilla连接server，将编译完成的Hadoop拷入，修改masters、slaves文件
+9. 使用FileZilla连接server，将编译完成的Hadoop拷入
 
-9. clone6个虚拟机
+10. clone6个虚拟机
 
 然后，分别进入六个虚拟机，修改hostname、hosts
 
