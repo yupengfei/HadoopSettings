@@ -18,7 +18,13 @@
 
 
 ##集群部署##
-集群的构架为一个NameNode，一个Secondary NameNode，一个Resource Manager，三个Slaves节点。
+集群的构架为一个NameNode，一个Secondary NameNode，一个Resource Manager，三个Slaves节点。对应的IP分别为
+
+| Tables        | Cool  |
+| ------------- | ----- |
+| NameNode      | $1600 |
+| col 2 is      |   $12 |
+| zebra stripes |    $1 |
 
 首先，安装一个虚拟机，在上面部署完成基础的操作系统。我们使用VirtualBox，过程如下：
 
@@ -134,13 +140,26 @@
 
     sudo apt-get upgrade
 
-7. 使用FileZilla连接server，修改profile文件
+7. 安装openjdk 7
 
-8. 修改masters、slaves文件，hadoop配置文件
+    sudo apt-get install openjdk-7-jdk
 
-9. 使用FileZilla连接server，将编译完成的Hadoop拷入
+8. 使用FileZilla连接server，修改profile文件，在开头添加
 
-10. clone6个虚拟机
+    export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+    export HADOOP_HOME=/opt/hadoop-2.4.1
+    export PATH=$PATH:$HADOOP_HOME/bin
+    export PATH=$PATH:$HADOOP_HOME/sbin
+    export HADOOP_MAPRED_HOME=${HADOOP_HOME}
+    export HADOOP_COMMON_HOME=${HADOOP_HOME}
+    export HADOOP_HDFS_HOME=${HADOOP_HOME}
+    export YARN_HOME=${HADOOP_HOME}
+
+9. 修改masters、slaves文件，hadoop配置文件
+
+10. 使用FileZilla连接server，将编译完成的Hadoop拷入
+
+11. clone6个虚拟机
 
 然后，分别进入六个虚拟机，修改hostname、hosts
 
