@@ -24,14 +24,14 @@
 
 1. 建立一个新的虚拟机
 ![](VirtualBoxImage/VirtualBox1.png)
-![](VirtualBoxImage/VirtualBox2)
-![](VirtualBoxImage/VirtualBox3)
-![](VirtualBoxImage/VirtualBox4)
-![](VirtualBoxImage/VirtualBox5)
-![](VirtualBoxImage/VirtualBox6)
-![](VirtualBoxImage/VirtualBox7)
-![](VirtualBoxImage/VirtualBox8)
-![](VirtualBoxImage/VirtualBox9)
+![](VirtualBoxImage/VirtualBox2.png)
+![](VirtualBoxImage/VirtualBox3.png)
+![](VirtualBoxImage/VirtualBox4.png)
+![](VirtualBoxImage/VirtualBox5.png)
+![](VirtualBoxImage/VirtualBox6.png)
+![](VirtualBoxImage/VirtualBox7.png)
+![](VirtualBoxImage/VirtualBox8.png)
+![](VirtualBoxImage/VirtualBox9.png)
 
 2. 下载Ubuntu Server，检验Md5
 
@@ -41,36 +41,36 @@
 
 3. 安装Ubuntu Server
   
-![](ServerInstallImage/ServerInstall1) 
-![](ServerInstallImage/ServerInstall2)
-![](ServerInstallImage/ServerInstall3)
-![](ServerInstallImage/ServerInstall4)
-![](ServerInstallImage/ServerInstall5)
-![](ServerInstallImage/ServerInstall6)
-![](ServerInstallImage/ServerInstall7)
-![](ServerInstallImage/ServerInstall8)
-![](ServerInstallImage/ServerInstall9)
-![](ServerInstallImage/ServerInstall10)
-![](ServerInstallImage/ServerInstall11)
-![](ServerInstallImage/ServerInstall12)
-![](ServerInstallImage/ServerInstall13)
-![](ServerInstallImage/ServerInstall14)
-![](ServerInstallImage/ServerInstall15)
-![](ServerInstallImage/ServerInstall16)
-![](ServerInstallImage/ServerInstall17)
-![](ServerInstallImage/ServerInstall18)
-![](ServerInstallImage/ServerInstall19)
-![](ServerInstallImage/ServerInstall20)
-![](ServerInstallImage/ServerInstall21)
-![](ServerInstallImage/ServerInstall22)
-![](ServerInstallImage/ServerInstall23)
-![](ServerInstallImage/ServerInstall24)
-![](ServerInstallImage/ServerInstall25)
-![](ServerInstallImage/ServerInstall26)
-![](ServerInstallImage/ServerInstall27)
-![](ServerInstallImage/ServerInstall28)
-![](ServerInstallImage/ServerInstall29)
-![](ServerInstallImage/ServerInstall30)
+![](ServerInstallImage/ServerInstall1.png) 
+![](ServerInstallImage/ServerInstall2.png)
+![](ServerInstallImage/ServerInstall3.png)
+![](ServerInstallImage/ServerInstall4.png)
+![](ServerInstallImage/ServerInstall5.png)
+![](ServerInstallImage/ServerInstall6.png)
+![](ServerInstallImage/ServerInstall7.png)
+![](ServerInstallImage/ServerInstall8.png)
+![](ServerInstallImage/ServerInstall9.png)
+![](ServerInstallImage/ServerInstall10.png)
+![](ServerInstallImage/ServerInstall11.png)
+![](ServerInstallImage/ServerInstall12.png)
+![](ServerInstallImage/ServerInstall13.png)
+![](ServerInstallImage/ServerInstall14.png)
+![](ServerInstallImage/ServerInstall15.png)
+![](ServerInstallImage/ServerInstall16.png)
+![](ServerInstallImage/ServerInstall17.png)
+![](ServerInstallImage/ServerInstall18.png)
+![](ServerInstallImage/ServerInstall19.png)
+![](ServerInstallImage/ServerInstall20.png)
+![](ServerInstallImage/ServerInstall21.png)
+![](ServerInstallImage/ServerInstall22.png)
+![](ServerInstallImage/ServerInstall23.png)
+![](ServerInstallImage/ServerInstall24.png)
+![](ServerInstallImage/ServerInstall25.png)
+![](ServerInstallImage/ServerInstall26.png)
+![](ServerInstallImage/ServerInstall27.png)
+![](ServerInstallImage/ServerInstall28.png)
+![](ServerInstallImage/ServerInstall29.png)
+![](ServerInstallImage/ServerInstall30.png)
 
 4. 设置网络连接，更新操作系统
 
@@ -97,7 +97,7 @@
    sudo ifup eth0
    ifconfig
 
-![](ServerInstallImage/ServerInstall31)
+![](ServerInstallImage/ServerInstall31.png)
     
 
 5. 设置ssh，使用root远程登录
@@ -126,7 +126,7 @@
 
 此时可以使用客户端登陆服务器
 
-![](ServerInstallImage/ServerInstall32)
+![](ServerInstallImage/ServerInstall32.png)
 
 6. 升级系统
 
