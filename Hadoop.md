@@ -23,7 +23,7 @@
 首先，安装一个虚拟机，在上面部署完成基础的操作系统。我们使用VirtualBox，过程如下：
 
 1. 建立一个新的虚拟机
-![](VirtualBoxImage/VirtualBox1)
+![](VirtualBoxImage/VirtualBox1.png)
 ![](VirtualBoxImage/VirtualBox2)
 ![](VirtualBoxImage/VirtualBox3)
 ![](VirtualBoxImage/VirtualBox4)
@@ -128,12 +128,18 @@
 
 ![](ServerInstallImage/ServerInstall32)
 
-6. 使用FileZilla连接server，修改profile文件
+6. 升级系统
+
+    sudo apt-get update
+
+    sudo apt-get upgrade
+
+7. 使用FileZilla连接server，修改profile文件
 
 
-7. 使用FileZilla连接server，将编译完成的Hadoop拷入，修改masters、slaves文件
+8. 使用FileZilla连接server，将编译完成的Hadoop拷入，修改masters、slaves文件
 
-7. clone6个虚拟机
+9. clone6个虚拟机
 
 然后，分别进入六个虚拟机，修改hostname、hosts
 
