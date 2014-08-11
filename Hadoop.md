@@ -1,6 +1,6 @@
-#Hadoop2.4安装配置指南#
+#Hadoop2.4安装、配置、使用指南#
 
-
+鉴于Hadoop配置繁琐，网络上的资料鱼龙混杂，我们决定写一个经过验证可行的Hadoop安装、配置、使用指南，免除新手苦苦摸索的痛苦。本文会不断的完善，你可能需要前往[Hadoop2.4安装、配置、使用指南](https://github.com/yupengfei/HadoopSettings)获取最新版。有问题或者建议欢迎加QQ群(55958311)讨论。
 ##安装环境##
 
 + 桌面：[Ubuntu Desktop 14.04.1 64位](http://www.ubuntu.com/download/desktop/)
@@ -20,11 +20,15 @@
 ##集群部署##
 集群的构架为一个NameNode，一个Secondary NameNode，一个Resource Manager，三个Slaves节点。对应的IP分别为
 
-| Tables        | Cool  |
-| ------------- | ----- |
-| NameNode      | $1600 |
-| col 2 is      |   $12 |
-| zebra stripes |    $1 |
+| hostname           | IP             |
+| ------------------ | -------------- |
+| namenode           | 172.16.253.211 |
+| secondarynamenode  | 172.16.253.212 |
+| resourcemanager    | 172.16.253.213 |
+| slave1             | 172.16.253.214 |
+| slave2             | 172.16.253.215 |
+| slave3             | 172.16.253.216 |
+
 
 首先，安装一个虚拟机，在上面部署完成基础的操作系统。我们使用VirtualBox，过程如下：
 
@@ -155,20 +159,118 @@
     export HADOOP_HDFS_HOME=${HADOOP_HOME}
     export YARN_HOME=${HADOOP_HOME}
 
-9. 修改masters、slaves文件，hadoop配置文件
+9. 编译hadoop
+  //TODO 应该是philo写的
+  //mvn package -DskipTests -Pdist,native -Dtar
+  //生成文件在hadoop-2.4.1-src/hadoop-dist/target/hadoop-2.4.1
+  //
 
-10. 使用FileZilla连接server，将编译完成的Hadoop拷入
+10. 修改/etc/hosts
 
-11. clone6个虚拟机
+添加
+    
+    172.16.253.211     namenode
+    172.16.253.212     secondarynamenode
+    172.16.253.213     resourcemanager
+    172.16.253.214     slave1
+    172.16.253.215     slave2
+    172.16.253.216     slave3
 
-然后，分别进入六个虚拟机，修改hostname、hosts
+11. 修改masters、slaves文件，hadoop配置文件
 
-1. 
+masters文件记录的实际上是secondary namenode的hostname，在hadoop-2.4.1/etc/hadoop下面新建masters文件，写入
 
-最后，设置ssh免登陆
+    secondarynamenode
+    
+slaves文件默认存在，记录的是slaves节点的hostname，修改hadoop-2.4.1/etc/hadoop下面的slaves文件，改为
+
+    slave1
+    slave2
+    slave3
+
+修改core-site.xml文件，将configuration之间加入
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://namenode:9000</value>
+        <final>true</final>
+    </property>
+    <property>
+        <name>hadoop.tmp.dir</name>
+        <value>/opt/tmp/hadoop-${user.name}</value>
+    </property>
+    <property>
+        <name>io.file.buffer.size</name>
+        <value>131072</value>
+    </property>
+
+修改hdfs-site.xml文件，在configuration之间加入
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file:/home/dfs/name</value>
+    </property>
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file:/home/dfs/data</value>
+    </property>
+    <property>
+        <name>dfs.replication</name>
+        <value>3</value>
+    </property>
+
+修改yarn-site.xml文件，将configuration之间加入
+    <property>
+        <name>yarn.resourcemanager.address</name>
+        <value>resourcemanager:9001</value>
+        <description>The address of the applications manager interface in the RM.</description>
+    </property>
+
+    <property>
+        <name>yarn.resourcemanager.scheduler.address</name>
+        <value>resourcemanager:18030</value>
+        <description>The address of the scheduler interface,in order for the RM to obtain the resource from scheduler</description>
+    </property>
+
+    <property>
+        <name>yarn.resourcemanager.resource-tracker.address</name>
+        <value>resourcemanager:18025</value>
+        <description>The address of the resource tracker interface for the nodeManagers</description>
+    </property>
+
+    <property>
+        <name>yarn.resourcemanager.admin.address</name>
+        <value>resourcemanager:18035</value>
+        <description>The address for admin manager</description>
+    </property>
+
+    <property>
+        <name>yarn.resourcemanager.webapp.address</name>
+        <value>resourcemanager:18088</value>
+        <description>The address of the RM web application.</description>
+    </property>
+
+    <property>
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value>
+    </property>
+12. 创建.ssh文件夹，为ssh免登陆做准备
+    
+    cd
+    mkdir .ssh
+13. 使用FileZilla连接server，将编译完成的Hadoop拷入/opt目录
+    
+
+14. 关闭虚拟机，clone6个虚拟机
+
+![](HadoopConfigure/Configure1.png)
+然后，分别进入六个虚拟机，修改hostname为其hostname然后重启
 
 
-开机，
+15. 设置ssh免登陆
+
+
+16.开机，
+
+17.检查运行情况
 
 ##文件上传、下载##
 
