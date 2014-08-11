@@ -188,6 +188,10 @@ slaves文件默认存在，记录的是slaves节点的hostname，修改hadoop-2.
     slave2
     slave3
 
+修改etc/hadoop/hadoop-env.sh修改export JAVA_HOME=${JAVA_HOME}为
+
+    export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+
 修改core-site.xml文件，将configuration之间加入
     <property>
         <name>fs.defaultFS</name>
@@ -202,9 +206,24 @@ slaves文件默认存在，记录的是slaves节点的hostname，修改hadoop-2.
         <name>io.file.buffer.size</name>
         <value>131072</value>
     </property>
+    <property> 
+        <name>fs.checkpoint.period</name> 
+        <value>3600</value> 
+        <description>The number of seconds between two periodic checkpoints.</description> 
+    </property> 
+    <property> 
+        <name>fs.checkpoint.size</name> 
+        <value>67108864</value> 
+     <description>The size of the current edit log (in bytes) that triggers a periodic checkpoint even if the fs.checkpoint.period hasn't expired.  </description> 
+    </property> 
+    <property> 
+        <name>fs.checkpoint.dir</name> 
+        <value>/home/dfs/namesecondary</value> 
+        <description>Determines where on the local filesystem the DFS secondary namenode should store the temporary images to merge.If this is a comma-delimited list of directories then the image is replicated in all of the directories for redundancy.</description> 
+    </property> 
 
 修改hdfs-site.xml文件，在configuration之间加入
-    <property>
+   <property>
         <name>dfs.namenode.name.dir</name>
         <value>file:/home/dfs/name</value>
     </property>
@@ -215,6 +234,19 @@ slaves文件默认存在，记录的是slaves节点的hostname，修改hadoop-2.
     <property>
         <name>dfs.replication</name>
         <value>3</value>
+    </property>
+    <property>
+        <name>dfs.secondary.http.address</name>
+        <value>secondarynamenode:50090</value>
+    </property>
+    <property>
+        <name>dfs.http.address</name>
+        <value>namenode:50070</value>
+    </property>
+    <property>
+        <name>dfs.block.size</name>
+        <value>16777216</value>
+        <description>The block size for new files.</description>
     </property>
 
 修改yarn-site.xml文件，将configuration之间加入
@@ -258,19 +290,82 @@ slaves文件默认存在，记录的是slaves节点的hostname，修改hadoop-2.
     mkdir .ssh
 13. 使用FileZilla连接server，将编译完成的Hadoop拷入/opt目录
     
+    拷贝过去的hadoop可能没有执行权限，在hadoop目录下手工执行
+    
+    chmod +x bin/*
+    chmod +x sbin/*
+    chmod +x libexec/*
 
 14. 关闭虚拟机，clone6个虚拟机
 
 ![](HadoopConfigure/Configure1.png)
-然后，分别进入六个虚拟机，修改hostname为其hostname然后重启
+然后，分别进入六个虚拟机，修改hostname为其/etc/hostname和IP然后重启
 
 
 15. 设置ssh免登陆
 
+登陆namenode，运行
 
-16.开机，
+ssh-keygen -t rsa，然后一直回车
 
-17.检查运行情况
+在/root/.ssh/目录下生成了两个文件 id_rsa 和 id_rsa.pub
+
+    cat id_rsa.pub > ./authorized_keys
+
+登陆resourcemanager，同样生成authorized_keys，把两个authorized_keys的内容拷贝到一起，复制到所有节点。
+
+scp authorized_keys root@namenode:/root/.ssh/
+
+scp authorized_keys root@secondarynamenode:/root/.ssh/
+
+scp authorized_keys root@resourcemanager:/root/.ssh/
+
+scp authorized_keys root@slave1:/root/.ssh/
+
+scp authorized_keys root@slave2:/root/.ssh/
+
+scp authorized_keys root@slave3:/root/.ssh/
+
+验证能否无密码ssh，在namenode服务器上执行操作：
+
+ssh root@namenode
+
+ssh root@secondarynamenode
+
+ssh root@resourcemanager
+
+ssh root@slave1
+
+ssh root@slave2
+
+ssh root@slave3
+
+注意：第一次可能会提示输入yes or no，之后就可以直接ssh到其他主机上去了。
+
+16. 运行
+
+在master上执行：
+
+hdfs namenode -format
+
+/opt/hadoop-2.4.1/sbin/start-dfs.sh
+
+在resourcemanager上执行：
+
+/opt/hadoop-2.4.1/sbin/start-yarn.sh
+
+若一切顺利，在各服务器上输入jps查看执行情况。
+
+    
+
+17.运行yarn示例
+
+ ./bin/hadoop jar ./share/hadoop/yarn/hadoop-yarn-applications-distributedshell-2.4.1.jar \
+org.apache.hadoop.yarn.applications.distributedshell.Client \
+-jar ./share/hadoop/yarn/hadoop-yarn-applications-distributedshell-2.4.1.jar \
+-shell_command date \
+-num_containers 1 \
+-container_memory 10
 
 ##文件上传、下载##
 
