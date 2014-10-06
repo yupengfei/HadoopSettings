@@ -18,6 +18,8 @@ AUTH：じòぴé→尐俽 , PHILO
 对编译的要求不是很高，并且您也没有大把时间来解决编译问题，我们这里提供了我已经编译好的**您可以绕过本步骤**
 直接下载已经编译好的点击[这里](http://pan.baidu.com/s/1sjsdym5)(Hadoop 2.4.1 64bit)
 
+当然我们也准备了其他版本[下载](http://pan.baidu.com/s/1jGkklzo)(Hadoop 2.5.1 64bit)
+
 
 
 ###编译的整个过程
