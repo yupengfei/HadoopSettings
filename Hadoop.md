@@ -200,10 +200,7 @@ Maven已经给我们做了大部分的工作编译流程一共两步
     export YARN_HOME=${HADOOP_HOME}
 
 9. 编译hadoop
-  //TODO 应该是philo写的
-  //mvn package -DskipTests -Pdist,native -Dtar
-  //生成文件在hadoop-2.4.1-src/hadoop-dist/target/hadoop-2.4.1
-  //
+  [参考](#%E7%BC%96%E8%AF%91%E7%9A%84%E6%95%B4%E4%B8%AA%E8%BF%87%E7%A8%8B)
 
 10. 修改/etc/hosts
 
